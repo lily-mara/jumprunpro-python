@@ -4,7 +4,7 @@ from os import path
 BASE_PATH = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
-with open(path.join(BASE_PATH, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(BASE_PATH, 'README.rst'), 'r') as f:
 	long_description = f.read()
 
 setup(
