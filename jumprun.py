@@ -26,6 +26,9 @@ class JumprunProApi(object):
 
 	def departing_loads(self):
 		soup = self._soup('departing_loads')
+		return self._parse_departing_loads(soup)
+
+	def _parse_departing_loads(self, soup):
 		loads = []
 
 		for load in soup.find_all('div', class_='departing-load'):
