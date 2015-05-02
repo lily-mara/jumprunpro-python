@@ -8,7 +8,7 @@ with open(path.join(BASE_PATH, 'README.rst'), 'r') as f:
 	long_description = f.read()
 
 setup(
-	name='jumprunpro-python',
+	name='python-jumprunpro',
 	version='0.0.1',
 	author='Nate Mara',
 	author_email='natemara@gmail.com',
