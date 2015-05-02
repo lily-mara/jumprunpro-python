@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
+from dateutil import parser
 
 
 class JumprunProApi(object):
@@ -34,8 +35,16 @@ class JumprunProApi(object):
 				state = state.text.strip()
 
 			call = load.find('h5', class_='call')
+			call_time = 0
 			if call:
 				call = call.text.strip()
+				try:
+					call_time_obj = parser.parse(call)
+
+					call_time = call_time_obj.minute
+					call_time += call_time_obj.hour * 60
+				except ValueError:
+					call_time = 0
 
 			slots = []
 			for slot in load.find_all('tr', class_='slot'):
@@ -51,6 +60,7 @@ class JumprunProApi(object):
 				'state': state,
 				'name': load_name,
 				'call': call,
+				'call_time': call_time,
 				'slots': slots,
 			})
 
