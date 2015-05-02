@@ -4,4 +4,4 @@ python:
 install:
     - "pip install tox"
 script:
-    - "python setup.py test"
+    - "tox"
