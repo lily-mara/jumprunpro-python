@@ -12,7 +12,7 @@ setup(
 	version='0.0.1',
 	author='Nate Mara',
 	author_email='natemara@gmail.com',
-	description='A simple API for getting winds aloft data from NOAA',
+	description='Simple python bindings for scraping data from JumpRun Pro',
 	long_description=long_description,
 	license='MIT',
 	test_suite='tests',
