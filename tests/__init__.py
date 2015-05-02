@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from unittest import TestCase
 import os
+import sys
 
 from bs4 import BeautifulSoup
 
@@ -13,6 +14,9 @@ BASE_PATH = os.path.dirname(__file__)
 def read_file(filename):
 	with open(BASE_PATH + '/' + filename, 'r') as f:
 		return ''.join(f.readlines())
+
+if sys.version_info.major < 3:
+	str = eval('unicode')
 
 
 class TestDepartingLoadsFormat(TestCase):
