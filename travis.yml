@@ -1,7 +1,15 @@
 language: python
 python:
-    - "3.4"
+  - '3.4'
 install:
-    - "pip install tox"
+  - pip install tox
 script:
-    - "tox"
+  - tox
+deploy:
+  provider: pypi
+  user: natemara
+  password:
+    secure: bncbePcVJw82AcvJRAP7+qEBCmHyRUh/cbQSp2QL4zFe/ymvKWYz1P6gP067/EBucgl1jtclh0EL9Ps12KjWGvXFF2O4iarz3vqli77PtyYwy6lWY98cVBZFchzLCvkLaWJ8JAfXlyGXMtVHr0j0cQBdtMabU2UJyCCE26TEFdA=
+  on:
+    tags: true
+    repo: natemara/jumprunpro-python
