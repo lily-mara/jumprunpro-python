@@ -197,3 +197,7 @@ class TestTimeToMinutes(TestCase):
 	def test_5_mintes_2_hours(self):
 		minutes = self.api._time_to_minutes('5 minutes, 2 hours')
 		self.assertEqual(125, minutes)
+
+	def test_invalid_string(self):
+		minutes = self.api._time_to_minutes('kjfasjfkal')
+		self.assertEqual(0, minutes)
