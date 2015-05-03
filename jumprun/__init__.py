@@ -28,6 +28,30 @@ class JumprunProApi(object):
 		soup = self._soup('departing_loads')
 		return self._parse_departing_loads(soup)
 
+	def _time_to_minutes(self, time_str):
+		"""
+		Convert a time string to the equivalent number in minutes as an int.
+		Return 0 if the time_str is not a valid amount of time.
+
+		>>> jump = JumprunProApi('skydive-warren-county')
+		>>> jump._time_to_minutes('34 minutes')
+		34
+		>>> jump._time_to_minutes('1 hour, 30 minutes')
+		90
+		>>> jump._time_to_minutes('jfksadjfkas')
+		0
+		"""
+		minutes = 0
+		try:
+			call_time_obj = parser.parse(time_str)
+
+			minutes = call_time_obj.minute
+			minutes += call_time_obj.hour * 60
+		except ValueError:
+			minutes = 0
+
+		return minutes
+
 	def _parse_departing_loads(self, soup):
 		loads = []
 
@@ -41,13 +65,7 @@ class JumprunProApi(object):
 			call_time = 0
 			if call:
 				call = call.text.strip()
-				try:
-					call_time_obj = parser.parse(call)
-
-					call_time = call_time_obj.minute
-					call_time += call_time_obj.hour * 60
-				except ValueError:
-					call_time = 0
+				call_time = self._time_to_minutes(call)
 
 			slots = []
 			for slot in load.find_all('tr', class_='slot'):
