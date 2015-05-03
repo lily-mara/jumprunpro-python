@@ -145,3 +145,55 @@ class TestDepartingLoadsExample(TestCase):
 		self.assertEqual(self.loads[2]['slots'][2]['name'], 'Rosemary Brown')
 		self.assertEqual(self.loads[2]['slots'][3]['name'], 'DAVE ARCARO')
 		self.assertEqual(self.loads[2]['slots'][4]['name'], 'Chelsea Besser')
+
+
+class TestTimeToMinutes(TestCase):
+	api = JumprunProApi('skydive-warren-county')
+
+	def test_30_minutes(self):
+		minutes = self.api._time_to_minutes('30 minutes')
+		self.assertEqual(30, minutes)
+
+	def test_93_minutes(self):
+		minutes = self.api._time_to_minutes('93 minutes')
+		self.assertEqual(0, minutes)
+
+	def test_0_minutes(self):
+		minutes = self.api._time_to_minutes('0 minutes')
+		self.assertEqual(0, minutes)
+
+	def test_1_minutes(self):
+		minutes = self.api._time_to_minutes('1 minutes')
+		self.assertEqual(1, minutes)
+
+	def test_1_minute(self):
+		minutes = self.api._time_to_minutes('1 minute')
+		self.assertEqual(1, minutes)
+
+	def test_1_hour(self):
+		minutes = self.api._time_to_minutes('1 hour')
+		self.assertEqual(60, minutes)
+
+	def test_1_hours(self):
+		minutes = self.api._time_to_minutes('1 hours')
+		self.assertEqual(60, minutes)
+
+	def test_2_hours(self):
+		minutes = self.api._time_to_minutes('2 hours')
+		self.assertEqual(120, minutes)
+
+	def test_24_hours(self):
+		minutes = self.api._time_to_minutes('24 hours')
+		self.assertEqual(0, minutes)
+
+	def test_48_hours(self):
+		minutes = self.api._time_to_minutes('48 hours')
+		self.assertEqual(0, minutes)
+
+	def test_2_hours_5_minutes(self):
+		minutes = self.api._time_to_minutes('2 hours, 5 minutes')
+		self.assertEqual(125, minutes)
+
+	def test_5_mintes_2_hours(self):
+		minutes = self.api._time_to_minutes('5 minutes, 2 hours')
+		self.assertEqual(125, minutes)
