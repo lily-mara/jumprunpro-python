@@ -201,3 +201,62 @@ class TestTimeToMinutes(TestCase):
 	def test_invalid_string(self):
 		minutes = self.api._time_to_minutes('kjfasjfkal')
 		self.assertEqual(0, minutes)
+
+
+class TestJumping(TestCase):
+	api = JumprunProApi('skydive-warren-county')
+
+	def test_no_loads(self):
+		loads = []
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_scheduled_load(self):
+		loads = [{'state': 'Scheduled'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertTrue(jumping)
+
+	def test_1_scheduled_1_closed_load(self):
+		loads = [{'state': 'Closed'}, {'state': 'Scheduled'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertTrue(jumping)
+
+	def test_2_closed_load(self):
+		loads = [{'state': 'Closed'}, {'state': 'Closed'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_closed_load(self):
+		loads = [{'state': 'Closed'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_on_hold_load(self):
+		loads = [{'state': 'On Hold'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_departed_load(self):
+		loads = [{'state': 'Departed'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_departed_load_weird_case(self):
+		loads = [{'state': 'DeParTED'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_on_hold_load_weird_case(self):
+		loads = [{'state': 'ON HoLD'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_closed_load_weird_case(self):
+		loads = [{'state': 'ClOSeD'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertFalse(jumping)
+
+	def test_1_scheduled_1_closed_load_weird_cases(self):
+		loads = [{'state': 'ClOsED'}, {'state': 'ScHEDuLeD'}]
+		jumping = self.api.jumping(_loads=loads)
+		self.assertTrue(jumping)

@@ -86,3 +86,22 @@ class JumprunProApi(object):
 			})
 
 		return loads
+
+	def jumping(self, _loads=None):
+		"""
+		Return True if this dropzone is still making new loads, False otherwise.
+
+		:param _loads: The output of the `departing_loads` function. This
+		should be left alone except for debugging purposes.
+		"""
+		if _loads is None:
+			_loads = self.departing_loads()
+
+		if len(_loads) < 1:
+			return False
+
+		last_load = _loads[-1:][0]
+		if last_load['state'].lower() in ('departed', 'closed', 'on hold'):
+			return False
+
+		return True
