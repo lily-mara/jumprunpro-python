@@ -9,7 +9,7 @@ with open(path.join(BASE_PATH, 'README.rst'), 'r') as f:
 
 setup(
 	name='python-jumprunpro',
-	version='0.0.1',
+	version='0.0.2',
 	author='Nate Mara',
 	author_email='natemara@gmail.com',
 	description='Simple python bindings for scraping data from JumpRun Pro',
