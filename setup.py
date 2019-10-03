@@ -32,7 +32,7 @@ setup(
 	],
 	install_requires=[
 		'beautifulsoup4==4.3.2',
-		'requests==2.6.2',
+		'requests==2.20.0',
 		'python-dateutil==2.4.2',
 	],
 )
